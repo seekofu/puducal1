@@ -12,10 +12,10 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="普渡計算機">
     
-    <!-- iOS 圖示 (增加邊距的版本) -->
-    <link rel="apple-touch-icon" href="https://img.icons8.com/plasticine/200/box.png">
+    <!-- iOS 圖示 (傳統紙箱風格) -->
+    <link rel="apple-touch-icon" href="https://img.icons8.com/color/192/cardboard-box.png">
 
-    <!-- 動態 Manifest 注入 (優化圖示邊距與配色) -->
+    <!-- 動態 Manifest 注入 -->
     <script id="pwa-manifest">
         const manifest = {
             "name": "普渡計算機",
@@ -26,20 +26,20 @@
             "theme_color": "#4b5340",
             "icons": [
                 {
-                    // 使用帶有內縮邊距的咖啡色紙箱圖示，避免被裁切
-                    "src": "https://img.icons8.com/plasticine/192/box.png",
+                    // 使用傳統咖啡色封箱紙箱圖示，尺寸比例已優化
+                    "src": "https://img.icons8.com/color/192/cardboard-box.png",
                     "sizes": "192x192",
                     "type": "image/png",
                     "purpose": "any"
                 },
                 {
-                    "src": "https://img.icons8.com/plasticine/192/box.png",
+                    "src": "https://img.icons8.com/color/192/cardboard-box.png",
                     "sizes": "192x192",
                     "type": "image/png",
                     "purpose": "maskable"
                 },
                 {
-                    "src": "https://img.icons8.com/plasticine/512/box.png",
+                    "src": "https://img.icons8.com/color/512/cardboard-box.png",
                     "sizes": "512x512",
                     "type": "image/png"
                 }
@@ -165,6 +165,7 @@
     <button id="global-clear-btn" class="floating-clear-btn">C</button>
 
     <main class="content-scroll px-6">
+        <!-- 1. 組數換算區 -->
         <section id="section-unit" class="flex flex-col min-h-full">
             <div class="pt-2">
                 <div class="grid grid-cols-2 gap-px bg-slate-200 rounded-3xl overflow-hidden soft-shadow">
@@ -190,6 +191,7 @@
             </div>
         </section>
 
+        <!-- 2. 堆疊計算區 -->
         <section id="section-stack" class="hidden flex flex-col min-h-full">
             <div class="pt-2">
                 <div class="grid grid-cols-2 gap-px bg-slate-200 rounded-3xl overflow-hidden soft-shadow">
@@ -225,6 +227,7 @@
             </div>
         </section>
 
+        <!-- 3. 清點合計區 -->
         <section id="section-count" class="hidden flex flex-col min-h-full">
             <div class="pt-2">
                 <div class="bg-white rounded-3xl overflow-hidden soft-shadow p-7 text-center">
@@ -278,11 +281,12 @@
     </nav>
 
     <script>
+        // PWA 註冊與 Service Worker
         (function() {
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
                     const swContent = `
-                        const CACHE_NAME = 'pudu-cache-v6';
+                        const CACHE_NAME = 'pudu-cache-v7';
                         self.addEventListener('install', event => self.skipWaiting());
                         self.addEventListener('activate', event => event.waitUntil(clients.claim()));
                         self.addEventListener('fetch', event => {
